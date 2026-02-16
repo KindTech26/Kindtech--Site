@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Kind Tech - Reliable AI for enterprises and consumers. Advanced artificial intelligence systems designed for real-world impact.">
+  <title>Kind Tech - Reliable AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ========================================== -->
+  <!-- NAVIGATION                                 -->
+  <!-- ========================================== -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#hero" class="nav__logo">
+        <img src="assets/kindtechlogo.png" alt="Kind Tech" class="nav__logo-img">
+      </a>
+      <ul class="nav__links">
+        <li><a href="#capabilities" class="nav__link">Capabilities</a></li>
+        <li><a href="#lab" class="nav__link">Lab</a></li>
+        <li><a href="#contact" class="nav__link">Contact</a></li>
+      </ul>
+      <button class="nav__mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-menu__links">
+      <li><a href="#capabilities" class="mobile-menu__link">Capabilities</a></li>
+      <li><a href="#lab" class="mobile-menu__link">Lab</a></li>
+      <li><a href="#contact" class="mobile-menu__link">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- HERO                                       -->
+  <!-- ========================================== -->
+  <section class="hero" id="hero">
+    <div class="hero__gradient" id="heroGradient"></div>
+    <div class="hero__content">
+<h1 class="hero__title" id="heroTitle">
+        <span class="hero__title-text">Reliable AI for <br> <em>enterprises</em> and <em>consumers.</em></span>
+      </h1>
+      <canvas id="heroCanvas" class="hero__canvas"></canvas>
+      <div class="hero__subtitle-row">
+        <p class="hero__subtitle">
+          Advanced artificial intelligence systems<br>designed for real-world impact.
+        </p>
+        <a href="#contact" class="hero__cta">Contact</a>
+      </div>
+      <div class="hero__scroll-indicator">
+        <div class="hero__scroll-line"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider-img">
+    <img src="assets/semfundo.png" alt="" class="section-divider-img__src">
+  </div>
+
+  <!-- ========================================== -->
+  <!-- CAPABILITIES                               -->
+  <!-- ========================================== -->
+  <section class="section" id="capabilities">
+    <div class="container">
+      <div class="section__header">
+        <h2 class="section__title">Capabilities</h2>
+        <div class="section__divider"></div>
+      </div>
+      <div class="capabilities__grid">
+
+        <div class="card" data-animate>
+          <div class="card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+          </div>
+          <h3 class="card__title">Conversational AI Systems</h3>
+          <p class="card__desc">Purpose-built conversational agents with domain-specific knowledge, adaptive dialogue management, and human-centered interaction design for enterprise and consumer use cases.</p>
+        </div>
+
+        <div class="card" data-animate>
+          <div class="card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+              <path d="M11 8v6M8 11h6"/>
+            </svg>
+          </div>
+          <h3 class="card__title">Retrieval-Augmented Generation</h3>
+          <p class="card__desc">Advanced RAG architectures combining vector search, semantic retrieval, and large language models to deliver accurate, grounded AI responses constrained to verified knowledge domains.</p>
+        </div>
+
+        <div class="card" data-animate>
+          <div class="card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+            </svg>
+          </div>
+          <h3 class="card__title">Enterprise AI Integration</h3>
+          <p class="card__desc">End-to-end integration of AI capabilities into existing enterprise systems, including authentication, data pipelines, compliance frameworks, and scalable deployment architectures.</p>
+        </div>
+
+        <div class="card" data-animate>
+          <div class="card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+          </div>
+          <h3 class="card__title">Real-time Streaming APIs</h3>
+          <p class="card__desc">Low-latency streaming architectures using Server-Sent Events and WebSocket protocols, optimized for sub-second AI response delivery with p95 targets under 2 seconds.</p>
+        </div>
+
+        <div class="card" data-animate>
+          <div class="card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/>
+              <line x1="8" y1="23" x2="16" y2="23"/>
+            </svg>
+          </div>
+          <h3 class="card__title">Voice & Speech Intelligence</h3>
+          <p class="card__desc">Multi-language speech recognition and synthesis pipelines with real-time sentiment analysis, emotion detection, and adaptive linguistic personalization for natural human-AI interaction.</p>
+        </div>
+
+        <div class="card" data-animate>
+          <div class="card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            </svg>
+          </div>
+          <h3 class="card__title">AI Infrastructure & Architecture</h3>
+          <p class="card__desc">Cloud-native AI infrastructure design on AWS, including CI/CD automation, database optimization, monitoring, and high-availability architectures built for production-grade reliability.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- AFFILIATERS                                -->
+  <!-- ========================================== -->
+  <section class="section section--alt" id="lab">
+    <div class="container">
+      <div class="section__header">
+        <h2 class="section__title">Lab</h2>
+        <div class="section__divider"></div>
+        <p class="section__subtitle">Kind Tech builds independent AI products and strategic collaborations.</p>
+      </div>
+
+      <div class="affiliaters__grid">
+        <div class="affiliater-card" data-animate>
+          <div class="affiliater-card__header">
+            <span class="affiliater-card__badge">Product</span>
+            <h3 class="affiliater-card__title">Compy</h3>
+          </div>
+          <p class="affiliater-card__tagline">AI for cognitive longevity</p>
+          <div class="affiliater-card__divider"></div>
+          <p class="affiliater-card__desc">An intelligent conversational platform designed for elderly populations. Compy combines adaptive dialogue, real-time sentiment analysis, and cognitive scoring to promote mental stimulation and emotional well-being through natural voice interaction.</p>
+          <a href="https://www.compyai.com" target="_blank" rel="noopener" class="affiliater-card__link">
+            compyai.com
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="affiliater-card affiliater-card--placeholder" data-animate>
+          <div class="affiliater-card__header">
+            <span class="affiliater-card__badge affiliater-card__badge--soon">Coming Soon</span>
+          </div>
+          <p class="affiliater-card__placeholder-text">Future collaborations and AI ventures.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- CONTACT                                    -->
+  <!-- ========================================== -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section__header">
+        <h2 class="section__title">Contact</h2>
+        <div class="section__divider"></div>
+      </div>
+
+      <div class="contact__grid">
+        <div class="contact__info">
+          <div class="contact__info-block">
+            <span class="contact__label">Email</span>
+            <a href="mailto:contact@kindtech.ai" class="contact__value">contact@kindtech.ai</a>
+          </div>
+          <div class="contact__info-block">
+            <span class="contact__label">LinkedIn</span>
+            <a href="#" class="contact__value contact__value--muted">Coming soon</a>
+          </div>
+          <div class="contact__info-block">
+            <span class="contact__label">Location</span>
+            <span class="contact__value contact__value--static">Portugal</span>
+          </div>
+        </div>
+
+        <form class="contact__form" id="contactForm">
+          <div class="form__group">
+            <label for="name" class="form__label">Name</label>
+            <input type="text" id="name" name="name" class="form__input" placeholder="Your name" required>
+          </div>
+          <div class="form__group">
+            <label for="email" class="form__label">Email</label>
+            <input type="email" id="email" name="email" class="form__input" placeholder="your@email.com" required>
+          </div>
+          <div class="form__group">
+            <label for="message" class="form__label">Message</label>
+            <textarea id="message" name="message" class="form__input form__textarea" placeholder="Tell us about your project" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="form__submit">
+            Send Message
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- FOOTER                                     -->
+  <!-- ========================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <p class="footer__copy">&copy; 2026 Kind Tech. All rights reserved.</p>
+        <ul class="footer__links">
+          <li><a href="#capabilities" class="footer__link">Capabilities</a></li>
+          <li><a href="#lab" class="footer__link">Lab</a></li>
+          <li><a href="#contact" class="footer__link">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
