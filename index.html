@@ -45,27 +45,39 @@
   <!-- HERO                                       -->
   <!-- ========================================== -->
   <section class="hero" id="hero">
+    <div class="section-divider-img">
+      <img src="assets/logoline.png" alt="" class="section-divider-img__src">
+    </div>
     <div class="hero__gradient" id="heroGradient"></div>
     <div class="hero__content">
 <h1 class="hero__title" id="heroTitle">
-        <span class="hero__title-text">Reliable AI for <br> <em>enterprises</em> and <em>consumers.</em></span>
+        <span class="hero__title-text"><span class="hero__gradient-text">Reliable AI</span> for <br> <em>enterprises</em> and <em>consumers.</em></span>
       </h1>
       <canvas id="heroCanvas" class="hero__canvas"></canvas>
       <div class="hero__subtitle-row">
         <p class="hero__subtitle">
           Advanced artificial intelligence systems<br>designed for real-world impact.
         </p>
-        <a href="#contact" class="hero__cta">Contact</a>
+        <a href="#contact" class="hero__cta">
+          Contact
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M7 17L17 7M17 7H7M17 7v10"/>
+          </svg>
+        </a>
+      </div>
+      <div class="hero__carousel">
+        <p class="hero__carousel-label">Recognized by:</p>
+        <div class="carousel" id="carousel">
+          <div class="carousel__track" id="carouselTrack">
+            <!-- Images will be injected here by JS -->
+          </div>
+        </div>
       </div>
       <div class="hero__scroll-indicator">
         <div class="hero__scroll-line"></div>
       </div>
     </div>
   </section>
-
-  <div class="section-divider-img">
-    <img src="assets/semfundo.png" alt="" class="section-divider-img__src">
-  </div>
 
   <!-- ========================================== -->
   <!-- CAPABILITIES                               -->

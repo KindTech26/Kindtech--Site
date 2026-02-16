@@ -103,10 +103,12 @@
     // Hide canvas — not needed for typewriter
     if (canvas) canvas.style.display = 'none';
 
-    // Parse HTML into tokens: text chars, line breaks, and italic spans
+    // Parse HTML into tokens: text chars, line breaks, italic spans, and gradient spans
     var tokens = [];
     var html = textSpan.innerHTML;
     var inEm = false;
+    var inGradient = false;
+    var gradientOpenTag = 'hero__gradient-text';
     var i = 0;
     while (i < html.length) {
       if (html.substr(i, 4).toLowerCase() === '<br>' || html.substr(i, 5).toLowerCase() === '<br/>' || html.substr(i, 6).toLowerCase() === '<br />') {
@@ -118,14 +120,20 @@
       } else if (html.substr(i, 5).toLowerCase() === '</em>') {
         inEm = false;
         i += 5;
+      } else if (html.charAt(i) === '<' && html.indexOf(gradientOpenTag, i) !== -1 && html.indexOf(gradientOpenTag, i) - i < 60) {
+        inGradient = true;
+        var close = html.indexOf('>', i);
+        i = close + 1;
+      } else if (html.substr(i, 7) === '</span>') {
+        inGradient = false;
+        i += 7;
       } else if (html.charAt(i) === '<') {
-        // skip other tags
         var close = html.indexOf('>', i);
         i = close + 1;
       } else {
         var ch = html.charAt(i);
         if (ch.trim() !== '' || tokens.length > 0) {
-          tokens.push({ type: 'char', char: ch, italic: inEm });
+          tokens.push({ type: 'char', char: ch, italic: inEm, gradient: inGradient });
         }
         i++;
       }
@@ -146,13 +154,18 @@
     var tokenIndex = 0;
     var baseSpeed = 55;
     var currentEm = null; // track active <em> wrapper
+    var currentGradient = null; // track active gradient wrapper
 
     function typeNext() {
       if (tokenIndex >= tokens.length) {
         // Typing done — keep cursor blinking for a moment, then fade it out
         currentEm = null;
+        currentGradient = null;
         setTimeout(function () {
           cursor.classList.add('typewriter-cursor--fade');
+          setTimeout(function () {
+            cursor.remove();
+          }, 600);
         }, 1500);
         return;
       }
@@ -160,9 +173,18 @@
       var token = tokens[tokenIndex];
       if (token.type === 'br') {
         currentEm = null;
+        currentGradient = null;
         textSpan.insertBefore(document.createElement('br'), cursor);
       } else {
-        if (token.italic) {
+        if (token.gradient) {
+          if (!currentGradient) {
+            currentGradient = document.createElement('span');
+            currentGradient.className = 'hero__gradient-text';
+            textSpan.insertBefore(currentGradient, cursor);
+          }
+          currentGradient.appendChild(document.createTextNode(token.char));
+        } else if (token.italic) {
+          currentGradient = null;
           if (!currentEm) {
             currentEm = document.createElement('em');
             textSpan.insertBefore(currentEm, cursor);
@@ -170,6 +192,7 @@
           currentEm.appendChild(document.createTextNode(token.char));
         } else {
           currentEm = null;
+          currentGradient = null;
           textSpan.insertBefore(document.createTextNode(token.char), cursor);
         }
       }
@@ -244,4 +267,46 @@
       }
     });
   });
+
+  /* ------------------------------------------
+     CAROUSEL - RECOGNIZED BY
+     ------------------------------------------ */
+
+  function initCarousel() {
+    var carouselTrack = document.getElementById('carouselTrack');
+    if (!carouselTrack) return;
+
+    var images = [1, 2, 3, 4, 5, 6, 7];
+    
+    // Shuffle array
+    function shuffleArray(array) {
+      var shuffled = array.slice();
+      for (var i = shuffled.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = shuffled[i];
+        shuffled[i] = shuffled[j];
+        shuffled[j] = temp;
+      }
+      return shuffled;
+    }
+
+    var shuffledImages = shuffleArray(images);
+
+    // Create carousel items (double them for seamless loop)
+    var itemsHTML = '';
+    
+    // First set
+    for (var i = 0; i < shuffledImages.length; i++) {
+      itemsHTML += '<div class="carousel__item"><img src="assets/recognizedby/' + shuffledImages[i] + '.png" alt="Recognized by ' + i + '"></div>';
+    }
+    
+    // Duplicate set for seamless loop
+    for (var i = 0; i < shuffledImages.length; i++) {
+      itemsHTML += '<div class="carousel__item"><img src="assets/recognizedby/' + shuffledImages[i] + '.png" alt="Recognized by ' + i + '"></div>';
+    }
+
+    carouselTrack.innerHTML = itemsHTML;
+  }
+
+  initCarousel();
 })();
