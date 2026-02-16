@@ -309,4 +309,27 @@
   }
 
   initCarousel();
+
+  /* ------------------------------------------
+     NEWS CAROUSEL - Arrow navigation
+     ------------------------------------------ */
+
+  function initNewsCarousel() {
+    var track = document.getElementById('newsTrack');
+    var leftBtn = document.getElementById('newsArrowLeft');
+    var rightBtn = document.getElementById('newsArrowRight');
+    if (!track || !leftBtn || !rightBtn) return;
+
+    var scrollAmount = 324; // card width (300) + gap (24)
+
+    leftBtn.addEventListener('click', function () {
+      track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    });
+
+    rightBtn.addEventListener('click', function () {
+      track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    });
+  }
+
+  initNewsCarousel();
 })();
