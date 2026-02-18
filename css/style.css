@@ -292,13 +292,10 @@ img {
   display: inline;
   font-weight: 300;
   color: var(--text-primary);
-  animation: cursorBlink 0.7s step-end infinite;
+  animation: cursorBlink 1.2s step-end infinite;
   margin-left: 2px;
 }
 
-.typewriter-cursor--fade {
-  animation: cursorFadeOut 0.6s ease-out forwards;
-}
 
 .hero__subtitle-row {
   display: flex;
@@ -578,6 +575,23 @@ img {
   font-size: 15px;
   color: var(--text-muted);
   font-weight: 300;
+}
+
+.lab__carousel {
+  margin-top: 48px;
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.lab__carousel-label {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 /* ==========================================
@@ -930,10 +944,6 @@ img {
   50% { opacity: 0; }
 }
 
-@keyframes cursorFadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
 
 @keyframes scrollLeft {
   0% {
@@ -941,6 +951,15 @@ img {
   }
   100% {
     transform: translateX(-50%);
+  }
+}
+
+@keyframes scrollRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
   }
 }
 
@@ -969,6 +988,10 @@ img {
   animation: fadeIn 1s ease-out 1.2s forwards;
 }
 
+.hero__carousel + .hero__carousel {
+  margin-top: 16px;
+}
+
 .hero__carousel-label {
   text-align: center;
   font-size: 12px;
@@ -995,6 +1018,14 @@ img {
 }
 
 .carousel__track:hover {
+  animation-play-state: paused;
+}
+
+.carousel__track--reverse {
+  animation: scrollLeft 17s linear infinite reverse;
+}
+
+.carousel__track--reverse:hover {
   animation-play-state: paused;
 }
 
@@ -1047,6 +1078,38 @@ img {
     display: flex;
   }
 
+  .hero {
+    padding: 0 20px;
+  }
+
+  .hero__subtitle-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .hero__subtitle {
+    text-align: center;
+  }
+
+  .hero__cta {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero__carousel {
+    max-width: 100%;
+  }
+
+  .section-divider-img__src {
+    width: 400px;
+    height: 400px;
+  }
+
+  .section-divider-img {
+    top: -100px;
+    left: -140px;
+  }
+
   .capabilities__grid {
     grid-template-columns: 1fr;
   }
@@ -1063,15 +1126,9 @@ img {
   }
 
   .footer__links {
-    gap: 24px;
-  }
-
-  .hero__logo {
-    height: 36px;
-  }
-
-  .hero__logo-wrap {
-    margin-bottom: 36px;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .container {
@@ -1085,6 +1142,20 @@ img {
   .affiliater-card {
     padding: 32px 28px;
   }
+
+  .news__card {
+    flex: 0 0 260px;
+  }
+
+  .news__arrow {
+    width: 34px;
+    height: 34px;
+  }
+
+  .news__track {
+    gap: 16px;
+    padding: 8px 16px 8px 0;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1093,11 +1164,117 @@ img {
     --nav-height: 60px;
   }
 
+  .hero {
+    padding: 0 16px;
+    min-height: 100svh;
+  }
+
+  .hero__title {
+    font-size: clamp(26px, 7vw, 36px);
+    margin-bottom: 20px;
+  }
+
+  .hero__subtitle-row {
+    gap: 16px;
+  }
+
+  .hero__cta {
+    padding: 12px 32px;
+  }
+
+  .hero__carousel {
+    margin-top: 32px;
+  }
+
+  .hero__carousel + .hero__carousel {
+    margin-top: 10px;
+  }
+
+  .section-divider-img__src {
+    width: 280px;
+    height: 280px;
+  }
+
+  .section-divider-img {
+    top: -80px;
+    left: -100px;
+  }
+
+  .hero__gradient {
+    width: 600px;
+    height: 600px;
+    bottom: -200px;
+    right: -200px;
+  }
+
+  .section__title {
+    font-size: clamp(28px, 7vw, 36px);
+  }
+
   .section__header {
     margin-bottom: 48px;
   }
 
+  .container {
+    padding: 0 16px;
+  }
+
+  .news__card {
+    flex: 0 0 240px;
+  }
+
+  .news__arrow {
+    width: 30px;
+    height: 30px;
+  }
+
+  .news__wrapper {
+    gap: 8px;
+  }
+
+  .news__source {
+    font-size: 11px;
+  }
+
+  .news__title {
+    font-size: 14px;
+  }
+
+  .affiliater-card {
+    padding: 28px 20px;
+  }
+
+  .affiliater-card__title {
+    font-size: 22px;
+  }
+
+  .affiliater-card__desc {
+    font-size: 13px;
+  }
+
+  .contact__info {
+    gap: 24px;
+  }
+
   .form__submit {
     width: 100%;
+  }
+
+  .footer__links {
+    gap: 16px;
+  }
+
+  .carousel__item img {
+    max-height: 36px;
+    max-width: 80px;
+  }
+
+  .carousel__item {
+    min-width: 60px;
+    height: 40px;
+  }
+
+  .carousel__track {
+    gap: 24px;
   }
 }

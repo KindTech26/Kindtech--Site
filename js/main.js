@@ -158,15 +158,9 @@
 
     function typeNext() {
       if (tokenIndex >= tokens.length) {
-        // Typing done — keep cursor blinking for a moment, then fade it out
+        // Typing done — cursor keeps blinking forever
         currentEm = null;
         currentGradient = null;
-        setTimeout(function () {
-          cursor.classList.add('typewriter-cursor--fade');
-          setTimeout(function () {
-            cursor.remove();
-          }, 600);
-        }, 1500);
         return;
       }
 
@@ -309,6 +303,40 @@
   }
 
   initCarousel();
+
+  /* ------------------------------------------
+     PARTNER CAROUSEL
+     ------------------------------------------ */
+
+  function initPartnerCarousel() {
+    var track = document.getElementById('partnerTrack');
+    if (!track) return;
+
+    var images = [1, 2, 3, 4];
+
+    function shuffleArray(array) {
+      var shuffled = array.slice();
+      for (var i = shuffled.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = shuffled[i];
+        shuffled[i] = shuffled[j];
+        shuffled[j] = temp;
+      }
+      return shuffled;
+    }
+
+    var shuffled = shuffleArray(images);
+    var html = '';
+    for (var i = 0; i < shuffled.length; i++) {
+      html += '<div class="carousel__item"><img src="assets/partner/' + shuffled[i] + '.png" alt="Partner ' + i + '"></div>';
+    }
+    for (var i = 0; i < shuffled.length; i++) {
+      html += '<div class="carousel__item"><img src="assets/partner/' + shuffled[i] + '.png" alt="Partner ' + i + '"></div>';
+    }
+    track.innerHTML = html;
+  }
+
+  initPartnerCarousel();
 
   /* ------------------------------------------
      NEWS CAROUSEL - Arrow navigation
