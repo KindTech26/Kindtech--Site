@@ -265,16 +265,36 @@
 
       var btn = contactForm.querySelector('.form__submit');
       var originalText = btn.innerHTML;
-      btn.innerHTML = 'Sent';
+      btn.innerHTML = 'Sending...';
       btn.style.opacity = '0.6';
       btn.disabled = true;
 
-      setTimeout(function () {
-        btn.innerHTML = originalText;
-        btn.style.opacity = '';
-        btn.disabled = false;
-        contactForm.reset();
-      }, 2500);
+      var formData = new FormData(contactForm);
+
+      fetch(contactForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      }).then(function (response) {
+        if (response.ok) {
+          btn.innerHTML = 'Sent!';
+          contactForm.reset();
+        } else {
+          btn.innerHTML = 'Error, try again';
+        }
+        setTimeout(function () {
+          btn.innerHTML = originalText;
+          btn.style.opacity = '';
+          btn.disabled = false;
+        }, 3000);
+      }).catch(function () {
+        btn.innerHTML = 'Error, try again';
+        setTimeout(function () {
+          btn.innerHTML = originalText;
+          btn.style.opacity = '';
+          btn.disabled = false;
+        }, 3000);
+      });
     });
   }
 
