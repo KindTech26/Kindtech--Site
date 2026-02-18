@@ -54,7 +54,7 @@
     <div class="hero__gradient" id="heroGradient"></div>
     <div class="hero__content">
 <h1 class="hero__title" id="heroTitle">
-        <span class="hero__title-text"><span class="hero__gradient-text">Reliable AI</span> for <br> <em>enterprises</em> and <em>consumers.</em></span>
+        <span class="hero__title-text"><span class="hero__gradient-text">Reliable AI</span> for <br> <em>enterprises</em> and <br class="hero__br--mobile"><em>consumers.</em></span>
       </h1>
       <canvas id="heroCanvas" class="hero__canvas"></canvas>
       <div class="hero__subtitle-row">
@@ -93,6 +93,50 @@
         <h2 class="section__title">Core Capabilities</h2>
         <div class="section__divider"></div>
       </div>
+      <!-- Mobile: tabbed single card -->
+      <div class="capabilities__tabs">
+        <div class="capabilities__tab-icons">
+          <button class="capabilities__tab-btn capabilities__tab-btn--active" data-tab="0">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+          </button>
+          <button class="capabilities__tab-btn" data-tab="1">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+              <path d="M11 8v6M8 11h6"/>
+            </svg>
+          </button>
+          <button class="capabilities__tab-btn" data-tab="2">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+            </svg>
+          </button>
+          <button class="capabilities__tab-btn" data-tab="3">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+          </button>
+          <button class="capabilities__tab-btn" data-tab="4">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/>
+              <line x1="8" y1="23" x2="16" y2="23"/>
+            </svg>
+          </button>
+          <button class="capabilities__tab-btn" data-tab="5">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            </svg>
+          </button>
+        </div>
+        <div class="capabilities__tab-card">
+          <h3 class="capabilities__tab-title">Conversational Systems</h3>
+          <p class="capabilities__tab-desc">Structured, domain-aware AI built for reliable human interaction.</p>
+        </div>
+      </div>
+
+      <!-- Desktop: full grid -->
       <div class="capabilities__grid">
 
         <div class="card" data-animate>
@@ -298,7 +342,6 @@
         <h2 class="section__title">Contact</h2>
         <div class="section__divider"></div>
       </div>
-
       <div class="contact__grid">
         <div class="contact__info">
           <div class="contact__info-block">
@@ -357,6 +400,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=2"></script>
+  <script src="js/main.js?v=3"></script>
 </body>
 </html>

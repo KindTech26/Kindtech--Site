@@ -90,6 +90,38 @@
   initScrollAnimations();
 
   /* ------------------------------------------
+     CAPABILITY TABS (Mobile)
+     ------------------------------------------ */
+
+  function initCapabilityTabs() {
+    var tabBtns = document.querySelectorAll('.capabilities__tab-btn');
+    var tabTitle = document.querySelector('.capabilities__tab-title');
+    var tabDesc = document.querySelector('.capabilities__tab-desc');
+    if (!tabBtns.length || !tabTitle || !tabDesc) return;
+
+    var capabilities = [
+      { title: 'Conversational Systems', desc: 'Structured, domain-aware AI built for reliable human interaction.' },
+      { title: 'Grounded Intelligence', desc: 'AI constrained to verified knowledge domains for precise responses.' },
+      { title: 'System Integration', desc: 'Seamless AI integration into existing digital environments.' },
+      { title: 'Real-Time AI', desc: 'Low-latency systems designed for fluid interaction.' },
+      { title: 'Voice Intelligence', desc: 'Natural speech interfaces for adaptive human–AI communication.' },
+      { title: 'AI Architecture', desc: 'Scalable, production-grade AI systems built for reliability.' }
+    ];
+
+    tabBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var index = parseInt(btn.getAttribute('data-tab'));
+        tabBtns.forEach(function (b) { b.classList.remove('capabilities__tab-btn--active'); });
+        btn.classList.add('capabilities__tab-btn--active');
+        tabTitle.textContent = capabilities[index].title;
+        tabDesc.textContent = capabilities[index].desc;
+      });
+    });
+  }
+
+  initCapabilityTabs();
+
+  /* ------------------------------------------
      HERO - Typewriter animation
      ------------------------------------------ */
 
@@ -111,9 +143,14 @@
     var gradientOpenTag = 'hero__gradient-text';
     var i = 0;
     while (i < html.length) {
-      if (html.substr(i, 4).toLowerCase() === '<br>' || html.substr(i, 5).toLowerCase() === '<br/>' || html.substr(i, 6).toLowerCase() === '<br />') {
-        tokens.push({ type: 'br' });
-        i += html.charAt(i + 3) === '>' ? 4 : html.indexOf('>', i) + 1 - i;
+      if (html.substr(i, 3).toLowerCase() === '<br') {
+        var brClose = html.indexOf('>', i);
+        var brTag = html.substring(i, brClose + 1);
+        var brClass = '';
+        var classMatch = brTag.match(/class="([^"]*)"/);
+        if (classMatch) brClass = classMatch[1];
+        tokens.push({ type: 'br', className: brClass });
+        i = brClose + 1;
       } else if (html.substr(i, 4).toLowerCase() === '<em>') {
         inEm = true;
         i += 4;
@@ -168,7 +205,9 @@
       if (token.type === 'br') {
         currentEm = null;
         currentGradient = null;
-        textSpan.insertBefore(document.createElement('br'), cursor);
+        var brEl = document.createElement('br');
+        if (token.className) brEl.className = token.className;
+        textSpan.insertBefore(brEl, cursor);
       } else {
         if (token.gradient) {
           if (!currentGradient) {

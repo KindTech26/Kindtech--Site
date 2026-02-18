@@ -159,12 +159,12 @@ img {
   top: var(--nav-height);
   left: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
   z-index: 999;
-  border-bottom: 1px solid var(--border-subtle);
-  padding: 32px;
+  padding: 24px 32px;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .mobile-menu--open {
@@ -273,6 +273,10 @@ img {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+.hero__br--mobile {
+  display: none;
 }
 
 .hero__title-text {
@@ -394,6 +398,58 @@ img {
 /* ==========================================
    CAPABILITY CARDS
    ========================================== */
+
+/* Mobile tabs - hidden on desktop */
+.capabilities__tabs {
+  display: none;
+}
+
+.capabilities__tab-icons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.capabilities__tab-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.capabilities__tab-btn--active {
+  color: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+  background: rgba(50, 160, 193, 0.08);
+}
+
+.capabilities__tab-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 24px 20px;
+}
+
+.capabilities__tab-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.capabilities__tab-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-weight: 300;
+}
 
 .capabilities__grid {
   display: grid;
@@ -1006,8 +1062,8 @@ img {
   width: 100%;
   overflow: hidden;
   background: transparent;
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%);
 }
 
 .carousel__track {
@@ -1067,7 +1123,7 @@ img {
 
 @media (max-width: 768px) {
   :root {
-    --section-padding: 96px;
+    --section-padding: 48px;
   }
 
   .nav__links {
@@ -1080,6 +1136,17 @@ img {
 
   .hero {
     padding: 0 20px;
+    min-height: auto;
+    padding-top: 120px;
+    padding-bottom: 24px;
+  }
+
+  .hero__br--mobile {
+    display: inline;
+  }
+
+  .hero__title {
+    font-size: clamp(36px, 9vw, 52px);
   }
 
   .hero__subtitle-row {
@@ -1092,12 +1159,22 @@ img {
   }
 
   .hero__cta {
-    width: 100%;
-    justify-content: center;
+    padding: 12px 28px;
+    font-size: 13px;
   }
 
   .hero__carousel {
     max-width: 100%;
+  }
+
+  .carousel {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+  }
+
+  .carousel__item img {
+    max-height: 52px;
+    max-width: 110px;
   }
 
   .section-divider-img__src {
@@ -1110,8 +1187,17 @@ img {
     left: -140px;
   }
 
+  .capabilities__tabs {
+    display: block;
+  }
+
   .capabilities__grid {
-    grid-template-columns: 1fr;
+    display: none;
+  }
+
+  .card__desc {
+    font-size: 13px;
+    line-height: 1.6;
   }
 
   .contact__grid {
@@ -1166,12 +1252,8 @@ img {
 
   .hero {
     padding: 0 16px;
-    min-height: 100svh;
-  }
-
-  .hero__title {
-    font-size: clamp(26px, 7vw, 36px);
-    margin-bottom: 20px;
+    min-height: 90svh;
+    padding-bottom: 40px;
   }
 
   .hero__subtitle-row {
@@ -1179,7 +1261,8 @@ img {
   }
 
   .hero__cta {
-    padding: 12px 32px;
+    padding: 10px 24px;
+    font-size: 12px;
   }
 
   .hero__carousel {
@@ -1264,14 +1347,9 @@ img {
     gap: 16px;
   }
 
-  .carousel__item img {
-    max-height: 36px;
-    max-width: 80px;
-  }
-
-  .carousel__item {
-    min-width: 60px;
-    height: 40px;
+  .carousel {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
   }
 
   .carousel__track {
