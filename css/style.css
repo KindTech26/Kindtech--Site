@@ -138,6 +138,14 @@ img {
   width: 100%;
 }
 
+.nav__link--active {
+  color: var(--text-primary);
+}
+
+.nav__link--active::after {
+  width: 100%;
+}
+
 .nav__mobile-toggle {
   display: none;
   background: none;
@@ -188,6 +196,10 @@ img {
 }
 
 .mobile-menu__link:hover {
+  color: var(--text-primary);
+}
+
+.mobile-menu__link--active {
   color: var(--text-primary);
 }
 
@@ -692,6 +704,8 @@ img {
   overflow: hidden;
   flex: 1;
   min-width: 0;
+  touch-action: pan-x;
+  overscroll-behavior: contain;
 }
 
 .news__arrow {
@@ -718,8 +732,13 @@ img {
   display: flex;
   gap: 24px;
   overflow-x: auto;
+  overflow-y: hidden;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
+  overscroll-behavior-y: contain;
   -ms-overflow-style: none;
   scrollbar-width: none;
   padding: 8px 48px 8px 0;
@@ -1294,6 +1313,121 @@ img {
   display: none;
 }
 
+/* ==========================================
+   THINKING PAGES
+   ========================================== */
+
+.thinking,
+.thinking-detail {
+  padding-top: calc(var(--nav-height) + 48px);
+  padding-bottom: 96px;
+}
+
+.thinking__hero {
+  text-align: center;
+  padding: clamp(72px, 11vw, 136px) 0 clamp(86px, 11vw, 142px);
+}
+
+.thinking__hero-title {
+  font-size: clamp(56px, 9vw, 108px);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.thinking__hero-subtitle {
+  margin-top: 10px;
+  font-size: 15px;
+  color: var(--text-secondary);
+  letter-spacing: 0.01em;
+  display: inline-block;
+  text-align: left;
+  transform: translate(-134px, -12px);
+}
+
+.thinking__sections {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.thinking__item {
+  display: block;
+  border-top: 1px solid #1f1f1f;
+  padding: 58px 0 62px;
+}
+
+.thinking__item:last-child {
+  border-bottom: 1px solid #1f1f1f;
+}
+
+.thinking__item-title {
+  font-size: clamp(32px, 4.8vw, 48px);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: color var(--transition-base);
+}
+
+.thinking__item-text {
+  margin-top: 12px;
+  max-width: 620px;
+  font-size: 17px;
+  color: #b3b3b3;
+}
+
+.thinking__item:hover .thinking__item-title,
+.thinking__item:focus-visible .thinking__item-title {
+  color: #f2f2f2;
+}
+
+.thinking__item:focus-visible {
+  outline: none;
+}
+
+.thinking-detail__content {
+  min-height: calc(100vh - var(--nav-height) - 190px);
+  min-height: calc(100svh - var(--nav-height) - 190px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.thinking-detail__title {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  font-size: clamp(54px, 9vw, 98px);
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+  color: var(--text-primary);
+  opacity: 0;
+  transform: translateY(8px);
+  animation: thinkingSoftFade 0.42s ease-out forwards;
+}
+
+.thinking-detail__subtitle {
+  margin-top: 18px;
+  font-size: 16px;
+  color: #b3b3b3;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: thinkingSoftFade 0.42s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+.thinking-detail__cursor {
+  margin-left: 2px;
+  font-size: 0.95em;
+  font-weight: 300;
+  color: #b3b3b3;
+  animation: cursorBlink 1.3s step-end infinite;
+}
+
 @media (min-width: 1025px) {
   .legal {
     padding-top: calc(var(--nav-height) + 64px);
@@ -1356,6 +1490,17 @@ img {
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+@keyframes thinkingSoftFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes scrollPulse {
@@ -1457,6 +1602,13 @@ img {
   .idle-overlay__title {
     animation: none;
   }
+
+  .thinking-detail__title,
+  .thinking-detail__subtitle {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ==========================================
@@ -1553,6 +1705,22 @@ img {
 }
 
 @media (max-width: 768px) {
+  html,
+  body {
+    overscroll-behavior-y: none;
+  }
+
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
   :root {
     --section-padding: 48px;
   }
@@ -1683,6 +1851,52 @@ img {
     padding: 20px;
   }
 
+  .thinking,
+  .thinking-detail {
+    padding-top: calc(var(--nav-height) + 30px);
+    padding-bottom: 72px;
+  }
+
+  .thinking__hero {
+    padding: 56px 0 72px;
+  }
+
+  .thinking__hero-title {
+    font-size: clamp(46px, 16vw, 78px);
+  }
+
+  .thinking__hero-subtitle {
+    margin-top: 10px;
+    font-size: 13px;
+    transform: none;
+  }
+
+  .thinking__item {
+    padding: 42px 0 46px;
+  }
+
+  .thinking__item-title {
+    font-size: clamp(28px, 8.8vw, 38px);
+  }
+
+  .thinking__item-text {
+    margin-top: 8px;
+    font-size: 15px;
+  }
+
+  .thinking-detail__content {
+    min-height: calc(100vh - var(--nav-height) - 164px);
+    min-height: calc(100svh - var(--nav-height) - 164px);
+  }
+
+  .thinking-detail__title {
+    font-size: clamp(46px, 14vw, 72px);
+  }
+
+  .thinking-detail__subtitle {
+    font-size: 14px;
+  }
+
   .container {
     padding: 0 20px;
   }
@@ -1707,6 +1921,7 @@ img {
   .news__track {
     gap: 16px;
     padding: 8px 16px 8px 0;
+    scroll-snap-type: x proximity;
   }
 }
 
@@ -1794,6 +2009,12 @@ img {
     gap: 8px;
   }
 
+  .news__track {
+    gap: 14px;
+    padding: 6px 12px 6px 0;
+    scroll-snap-type: x proximity;
+  }
+
   .news__source {
     font-size: 11px;
   }
@@ -1832,6 +2053,46 @@ img {
 
   .legal__title {
     font-size: clamp(30px, 9vw, 40px);
+  }
+
+  .thinking__hero {
+    padding: 44px 0 58px;
+  }
+
+  .thinking__hero-title {
+    font-size: clamp(40px, 17vw, 62px);
+  }
+
+  .thinking__hero-subtitle {
+    margin-top: 8px;
+    font-size: 12px;
+    transform: translate(-65px, -15px);
+  }
+
+  .thinking__item {
+    padding: 34px 0 36px;
+  }
+
+  .thinking__item-title {
+    font-size: clamp(24px, 10vw, 34px);
+  }
+
+  .thinking__item-text {
+    font-size: 14px;
+  }
+
+  .thinking-detail__content {
+    min-height: calc(100vh - var(--nav-height) - 146px);
+    min-height: calc(100svh - var(--nav-height) - 146px);
+  }
+
+  .thinking-detail__title {
+    font-size: clamp(40px, 16vw, 58px);
+  }
+
+  .thinking-detail__subtitle {
+    margin-top: 14px;
+    font-size: 13px;
   }
 
   .carousel {
