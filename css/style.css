@@ -32,6 +32,8 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -1407,17 +1409,17 @@ img {
   }
 
   .hero__carousel {
-    margin-top: 56px;
-    max-width: 100%;
+    margin-top: 58px;
+    max-width: 92%;
   }
 
   .hero__carousel + .hero__carousel {
-    margin-top: 18px;
+    margin-top: 14px;
   }
 
   .hero__carousel-label {
-    font-size: 16px;
-    font-weight: 300;
+    font-size: 12px;
+    font-weight: 400;
     letter-spacing: 0;
     text-transform: none;
   }
@@ -1428,8 +1430,8 @@ img {
   }
 
   .carousel__item img {
-    max-height: 52px;
-    max-width: 110px;
+    max-height: 44px;
+    max-width: 96px;
   }
 
   .section-divider-img__src {
@@ -1542,11 +1544,21 @@ img {
   }
 
   .hero__carousel {
-    margin-top: 38px;
+    margin-top: 40px;
+    max-width: 90%;
   }
 
   .hero__carousel + .hero__carousel {
-    margin-top: 12px;
+    margin-top: 10px;
+  }
+
+  .hero__carousel-label {
+    font-size: 11px;
+  }
+
+  .carousel__item img {
+    max-height: 38px;
+    max-width: 84px;
   }
 
   .section-divider-img__src {
