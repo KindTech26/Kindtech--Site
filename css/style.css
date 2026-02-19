@@ -290,6 +290,11 @@ img {
   visibility: visible;
 }
 
+.hero__title-prefix {
+  display: inline-flex;
+  align-items: baseline;
+}
+
 .hero__canvas {
   display: none;
 }

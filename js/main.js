@@ -143,11 +143,15 @@
 
   function initHeroHeadlineRotator() {
     var textSpan = document.getElementById('heroTitleText');
+    var prefixContainer = document.getElementById('heroTitlePrefix');
+    var tailContainer = document.getElementById('heroTitleTail');
+    var prefixLead = document.getElementById('heroTitlePrefixLead');
+    var prefixTail = document.getElementById('heroTitlePrefixTail');
     var dynamicText = document.getElementById('heroTitleDynamic');
     var cursor = document.getElementById('heroTitleCursor');
     var canvas = document.getElementById('heroCanvas');
 
-    if (!textSpan || !dynamicText) {
+    if (!textSpan || !dynamicText || !prefixLead || !prefixTail) {
       return {
         onInteraction: function () {},
         setIdleState: function () {}
@@ -183,11 +187,37 @@
     var typeDelay = 58;
     var deleteDelay = 30;
     var holdDelay = 10000;
+    var introDelay = 62;
+    var introStartDelay = 420;
     var timer = null;
     var phraseIndex = 0;
     var charIndex = 0;
-    var mode = 'typing';
+    var mode = 'intro';
     var isIdle = false;
+    var introIndex = 0;
+    var introLeadText = 'Reliable AI';
+    var introTailText = '\u00A0for';
+    var introFullText = introLeadText + introTailText;
+
+    function renderIntro(count) {
+      var safeCount = Math.max(0, Math.min(count, introFullText.length));
+      var leadCount = Math.min(safeCount, introLeadText.length);
+      var tailCount = Math.max(0, safeCount - introLeadText.length);
+
+      prefixLead.textContent = introLeadText.slice(0, leadCount);
+      prefixTail.textContent = introTailText.slice(0, tailCount);
+    }
+
+    function placeCursorInPrefix() {
+      if (!cursor || !prefixContainer) return;
+      prefixContainer.appendChild(cursor);
+    }
+
+    function placeCursorInTail() {
+      if (!cursor || !tailContainer) return;
+      tailContainer.appendChild(cursor);
+    }
+
     function escapeHtml(text) {
       return text
         .replace(/&/g, '&amp;')
@@ -254,6 +284,21 @@
         return;
       }
 
+      if (mode === 'intro') {
+        introIndex += 1;
+        renderIntro(introIndex);
+        if (introIndex >= introFullText.length) {
+          placeCursorInTail();
+          mode = 'typing';
+          scheduleStep(240);
+          return;
+        }
+        var introChar = introFullText.charAt(introIndex - 1);
+        var introNextDelay = (introChar === ' ' || introChar === '\u00A0') ? 42 : introDelay + Math.random() * 22;
+        scheduleStep(introNextDelay);
+        return;
+      }
+
       var phrase = phrases[phraseIndex];
       var phraseText = getPhraseText(phrase);
 
@@ -309,6 +354,7 @@
     }
 
     if (prefersReducedMotion) {
+      renderIntro(introFullText.length);
       renderDynamic(phrases[0], getPhraseText(phrases[0]).length);
       if (cursor) cursor.style.display = 'none';
       return {
@@ -317,8 +363,10 @@
       };
     }
 
+    placeCursorInPrefix();
+    renderIntro(0);
     dynamicText.textContent = '';
-    scheduleStep(650);
+    scheduleStep(introStartDelay);
 
     return {
       onInteraction: function () {},
