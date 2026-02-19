@@ -1136,7 +1136,8 @@ img {
 
   .hero {
     padding: 0 20px;
-    min-height: auto;
+    min-height: 100svh;
+    min-height: 100dvh;
     padding-top: 200px;
     padding-bottom: 24px;
   }
@@ -1252,7 +1253,8 @@ img {
 
   .hero {
     padding: 0 16px;
-    min-height: 90svh;
+    min-height: 100svh;
+    min-height: 100dvh;
     padding-bottom: 40px;
   }
 
