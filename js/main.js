@@ -6,6 +6,22 @@
   'use strict';
 
   /* ------------------------------------------
+     MOBILE VIEWPORT HEIGHT (iOS-safe)
+     ------------------------------------------ */
+
+  function updateVhUnit() {
+    var vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', vh + 'px');
+  }
+
+  updateVhUnit();
+  window.addEventListener('resize', updateVhUnit, { passive: true });
+  window.addEventListener('orientationchange', updateVhUnit, { passive: true });
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', updateVhUnit, { passive: true });
+  }
+
+  /* ------------------------------------------
      NAVIGATION - Scroll effect & Mobile menu
      ------------------------------------------ */
 
