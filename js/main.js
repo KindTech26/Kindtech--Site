@@ -172,13 +172,6 @@
       },
       {
         parts: [
-          { text: 'systems', className: 'hero__title-part--italic' },
-          { text: ' and ' },
-          { text: 'people.', className: 'hero__title-part--italic' }
-        ]
-      },
-      {
-        parts: [
           { text: 'real-world impact.', className: 'hero__title-part--italic' }
         ]
       }
@@ -537,7 +530,7 @@
     var carouselTrack = document.getElementById('carouselTrack');
     if (!carouselTrack) return;
 
-    var images = [1, 2, 3, 4, 5, 6, 7];
+    var images = [1, 2, 3, 4, 5, 6, 7, 8];
     
     // Shuffle array
     function shuffleArray(array) {
@@ -614,7 +607,7 @@
   function refreshHeroCarouselLoopDistances() {
     var recognizedTrack = document.getElementById('carouselTrack');
     var partnerTrack = document.getElementById('partnerTrack');
-    applyCarouselLoopDistance(recognizedTrack, 7);
+    applyCarouselLoopDistance(recognizedTrack, 8);
     applyCarouselLoopDistance(partnerTrack, 4);
   }
 
