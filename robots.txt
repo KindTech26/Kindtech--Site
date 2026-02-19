@@ -1,0 +1,105 @@
+# Kind Tech - robots.txt
+# https://kindtech.pt
+
+# ===========================================
+# Default: Allow all crawlers
+# ===========================================
+User-agent: *
+Allow: /
+Disallow: /assets/
+Disallow: /js/
+Disallow: /css/
+
+# ===========================================
+# Search Engine Crawlers
+# ===========================================
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Yandex
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# ===========================================
+# AI Crawlers - Explicitly Allowed
+# ===========================================
+
+# OpenAI / ChatGPT
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Google AI (Gemini, AI Overviews)
+User-agent: Google-Extended
+Allow: /
+
+# Anthropic / Claude
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Meta AI
+User-agent: FacebookBot
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+# Microsoft Copilot (uses Bingbot)
+User-agent: bingbot
+Allow: /
+
+# Common Crawl (used by many AI training sets)
+User-agent: CCBot
+Allow: /
+
+# Apple AI / Siri
+User-agent: Applebot
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+
+# Cohere AI
+User-agent: cohere-ai
+Allow: /
+
+# Brave Search
+User-agent: BraveBot
+Allow: /
+
+# Brave AI (Leo)
+User-agent: BraveLeoAgent
+Allow: /
+
+# ===========================================
+# Unwanted Crawlers - Blocked
+# ===========================================
+User-agent: Bytespider
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+# ===========================================
+# Sitemap
+# ===========================================
+Sitemap: https://kindtech.pt/sitemap.xml
