@@ -382,7 +382,7 @@
     var overlay = document.getElementById('idleOverlay');
     if (!overlay) return;
 
-    var idleDelay = 45000;
+    var idleDelay = 20000;
     var idleTimer = null;
     var idleActive = false;
     var lastSignalTime = 0;
