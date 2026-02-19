@@ -530,7 +530,7 @@
     var carouselTrack = document.getElementById('carouselTrack');
     if (!carouselTrack) return;
 
-    var images = [1, 2, 3, 4, 5, 6, 7, 8];
+    var images = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     
     // Shuffle array
     function shuffleArray(array) {
@@ -607,7 +607,7 @@
   function refreshHeroCarouselLoopDistances() {
     var recognizedTrack = document.getElementById('carouselTrack');
     var partnerTrack = document.getElementById('partnerTrack');
-    applyCarouselLoopDistance(recognizedTrack, 8);
+    applyCarouselLoopDistance(recognizedTrack, 9);
     applyCarouselLoopDistance(partnerTrack, 4);
   }
 
