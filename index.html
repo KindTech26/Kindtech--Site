@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=2">
+  <link rel="stylesheet" href="css/style.css?v=9">
 </head>
 <body>
 
@@ -53,8 +53,13 @@
     </div>
     <div class="hero__gradient" id="heroGradient"></div>
     <div class="hero__content">
-<h1 class="hero__title" id="heroTitle">
-        <span class="hero__title-text"><span class="hero__gradient-text">Reliable AI</span> for <br> <em>enterprises</em> and <br class="hero__br--mobile"><em>consumers.</em></span>
+      <h1 class="hero__title" id="heroTitle">
+        <span class="hero__title-text" id="heroTitleText">
+          <span class="hero__gradient-text">Reliable AI</span> for <br>
+          <span class="hero__title-tail">
+            <span class="hero__title-dynamic" id="heroTitleDynamic"></span><span class="typewriter-cursor" id="heroTitleCursor" aria-hidden="true">|</span>
+          </span>
+        </span>
       </h1>
       <canvas id="heroCanvas" class="hero__canvas"></canvas>
       <div class="hero__subtitle-row">
@@ -402,6 +407,14 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=4"></script>
+  <div class="idle-overlay" id="idleOverlay" aria-hidden="true">
+    <div class="idle-overlay__content">
+      <img src="assets/kindtechlogo.png" alt="Kind Tech" class="idle-overlay__logo">
+      <p class="idle-overlay__title">Intelligence Never Sleeps.</p>
+      <p class="idle-overlay__hint">Move to resume</p>
+    </div>
+  </div>
+
+  <script src="js/main.js?v=11"></script>
 </body>
 </html>

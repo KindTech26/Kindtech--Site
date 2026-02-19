@@ -138,136 +138,267 @@
   initCapabilityTabs();
 
   /* ------------------------------------------
-     HERO - Typewriter animation
+     HERO - Headline typewriter rotator
      ------------------------------------------ */
 
-  function initHeroAnimation() {
-    var titleEl = document.getElementById('heroTitle');
-    var textSpan = titleEl.querySelector('.hero__title-text');
+  function initHeroHeadlineRotator() {
+    var textSpan = document.getElementById('heroTitleText');
+    var dynamicText = document.getElementById('heroTitleDynamic');
+    var cursor = document.getElementById('heroTitleCursor');
     var canvas = document.getElementById('heroCanvas');
 
-    if (!textSpan) return;
-
-    // Hide canvas — not needed for typewriter
-    if (canvas) canvas.style.display = 'none';
-
-    // Parse HTML into tokens: text chars, line breaks, italic spans, and gradient spans
-    var tokens = [];
-    var html = textSpan.innerHTML;
-    var inEm = false;
-    var inGradient = false;
-    var gradientOpenTag = 'hero__gradient-text';
-    var i = 0;
-    while (i < html.length) {
-      if (html.substr(i, 3).toLowerCase() === '<br') {
-        var brClose = html.indexOf('>', i);
-        var brTag = html.substring(i, brClose + 1);
-        var brClass = '';
-        var classMatch = brTag.match(/class="([^"]*)"/);
-        if (classMatch) brClass = classMatch[1];
-        tokens.push({ type: 'br', className: brClass });
-        i = brClose + 1;
-      } else if (html.substr(i, 4).toLowerCase() === '<em>') {
-        inEm = true;
-        i += 4;
-      } else if (html.substr(i, 5).toLowerCase() === '</em>') {
-        inEm = false;
-        i += 5;
-      } else if (html.charAt(i) === '<' && html.indexOf(gradientOpenTag, i) !== -1 && html.indexOf(gradientOpenTag, i) - i < 60) {
-        inGradient = true;
-        var close = html.indexOf('>', i);
-        i = close + 1;
-      } else if (html.substr(i, 7) === '</span>') {
-        inGradient = false;
-        i += 7;
-      } else if (html.charAt(i) === '<') {
-        var close = html.indexOf('>', i);
-        i = close + 1;
-      } else {
-        var ch = html.charAt(i);
-        if (ch.trim() !== '' || tokens.length > 0) {
-          tokens.push({ type: 'char', char: ch, italic: inEm, gradient: inGradient });
-        }
-        i++;
-      }
+    if (!textSpan || !dynamicText) {
+      return {
+        onInteraction: function () {},
+        setIdleState: function () {}
+      };
     }
-    // Trim leading/trailing whitespace tokens
-    while (tokens.length && tokens[0].type === 'char' && tokens[0].char.trim() === '') tokens.shift();
-    while (tokens.length && tokens[tokens.length - 1].type === 'char' && tokens[tokens.length - 1].char.trim() === '') tokens.pop();
 
-    textSpan.textContent = '';
+    if (canvas) canvas.style.display = 'none';
     textSpan.classList.add('hero__title-text--typing');
 
-    // Add cursor element
-    var cursor = document.createElement('span');
-    cursor.className = 'typewriter-cursor';
-    cursor.textContent = '|';
-    textSpan.appendChild(cursor);
+    var phrases = [
+      {
+        parts: [
+          { text: 'enterprises', className: 'hero__title-part--italic' },
+          { text: ' and ', className: 'hero__title-part--bold' },
+          { breakClass: 'hero__br--mobile' },
+          { text: 'consumers.', className: 'hero__title-part--italic' }
+        ]
+      },
+      {
+        parts: [
+          { text: 'systems', className: 'hero__title-part--italic' },
+          { text: ' and ' },
+          { text: 'people.', className: 'hero__title-part--italic' }
+        ]
+      },
+      {
+        parts: [
+          { text: 'real-world impact.', className: 'hero__title-part--italic' }
+        ]
+      }
+    ];
+    var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var typeDelay = 58;
+    var deleteDelay = 30;
+    var holdDelay = 10000;
+    var timer = null;
+    var phraseIndex = 0;
+    var charIndex = 0;
+    var mode = 'typing';
+    var isIdle = false;
+    function escapeHtml(text) {
+      return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
 
-    var tokenIndex = 0;
-    var baseSpeed = 55;
-    var currentEm = null; // track active <em> wrapper
-    var currentGradient = null; // track active gradient wrapper
+    function getPhraseText(phraseConfig) {
+      return phraseConfig.parts.map(function (part) {
+        return part.text || '';
+      }).join('');
+    }
 
-    function typeNext() {
-      if (tokenIndex >= tokens.length) {
-        // Typing done — cursor keeps blinking forever
-        currentEm = null;
-        currentGradient = null;
+    function renderDynamic(phraseConfig, count) {
+      var phraseText = getPhraseText(phraseConfig);
+      var safeCount = Math.max(0, Math.min(count, phraseText.length));
+      if (safeCount === 0) {
+        dynamicText.textContent = '';
         return;
       }
 
-      var token = tokens[tokenIndex];
-      if (token.type === 'br') {
-        currentEm = null;
-        currentGradient = null;
-        var brEl = document.createElement('br');
-        if (token.className) brEl.className = token.className;
-        textSpan.insertBefore(brEl, cursor);
-      } else {
-        if (token.gradient) {
-          if (!currentGradient) {
-            currentGradient = document.createElement('span');
-            currentGradient.className = 'hero__gradient-text';
-            textSpan.insertBefore(currentGradient, cursor);
+      var consumed = 0;
+      var html = '';
+
+      phraseConfig.parts.forEach(function (part) {
+        if (part.breakClass) {
+          if (safeCount >= consumed) {
+            html += '<br class="' + part.breakClass + '">';
           }
-          currentGradient.appendChild(document.createTextNode(token.char));
-        } else if (token.italic) {
-          currentGradient = null;
-          if (!currentEm) {
-            currentEm = document.createElement('em');
-            textSpan.insertBefore(currentEm, cursor);
-          }
-          currentEm.appendChild(document.createTextNode(token.char));
-        } else {
-          currentEm = null;
-          currentGradient = null;
-          textSpan.insertBefore(document.createTextNode(token.char), cursor);
+          return;
         }
-      }
-      tokenIndex++;
 
-      var char = token.type === 'br' ? '\n' : token.char;
+        if (safeCount <= consumed) return;
 
-      // Variable speed: pause longer on punctuation
-      var delay = baseSpeed;
-      if (char === '.' || char === ',' || char === '—') {
-        delay = 280;
-      } else if (char === ' ') {
-        delay = 40;
-      } else {
-        // Slight random variation for natural feel
-        delay = baseSpeed + Math.random() * 30;
-      }
+        var visibleLen = Math.min(part.text.length, safeCount - consumed);
+        var visibleText = escapeHtml(part.text.slice(0, visibleLen));
+        if (part.className) {
+          html += '<span class="' + part.className + '">' + visibleText + '</span>';
+        } else {
+          html += visibleText;
+        }
+        consumed += visibleLen;
+      });
 
-      setTimeout(typeNext, delay);
+      dynamicText.innerHTML = html;
     }
 
-    typeNext();
+    function clearTimer() {
+      if (timer) {
+        clearTimeout(timer);
+        timer = null;
+      }
+    }
+
+    function scheduleStep(delay) {
+      clearTimer();
+      timer = setTimeout(step, delay);
+    }
+
+    function step() {
+      if (isIdle || prefersReducedMotion) {
+        return;
+      }
+
+      var phrase = phrases[phraseIndex];
+      var phraseText = getPhraseText(phrase);
+
+      if (mode === 'holding') {
+        mode = 'deleting';
+        scheduleStep(80);
+        return;
+      }
+
+      if (mode === 'typing') {
+        charIndex += 1;
+        renderDynamic(phrase, charIndex);
+
+        if (charIndex >= phraseText.length) {
+          mode = 'holding';
+          scheduleStep(holdDelay);
+          return;
+        }
+
+        var typedChar = phraseText.charAt(charIndex - 1);
+        var nextDelay = typedChar === ' ' ? 40 : typeDelay + Math.random() * 24;
+        if (typedChar === '.' || typedChar === ',') {
+          nextDelay = 160;
+        }
+        scheduleStep(nextDelay);
+        return;
+      }
+
+      charIndex -= 1;
+      if (charIndex < 0) charIndex = 0;
+      renderDynamic(phrase, charIndex);
+
+      if (charIndex === 0) {
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        mode = 'typing';
+        scheduleStep(280);
+        return;
+      }
+
+      scheduleStep(deleteDelay);
+    }
+
+    function setIdleState(idleState) {
+      isIdle = !!idleState;
+      if (isIdle) {
+        clearTimer();
+        return;
+      }
+
+      if (!prefersReducedMotion) {
+        scheduleStep(220);
+      }
+    }
+
+    if (prefersReducedMotion) {
+      renderDynamic(phrases[0], getPhraseText(phrases[0]).length);
+      if (cursor) cursor.style.display = 'none';
+      return {
+        onInteraction: function () {},
+        setIdleState: function () {}
+      };
+    }
+
+    dynamicText.textContent = '';
+    scheduleStep(650);
+
+    return {
+      onInteraction: function () {},
+      setIdleState: setIdleState
+    };
   }
 
-  // Start hero animation after a brief delay
-  setTimeout(initHeroAnimation, 600);
+  /* ------------------------------------------
+     GLOBAL IDLE OVERLAY
+     ------------------------------------------ */
+
+  function initIdleOverlay(headlineController) {
+    var overlay = document.getElementById('idleOverlay');
+    if (!overlay) return;
+
+    var idleDelay = 45000;
+    var idleTimer = null;
+    var idleActive = false;
+    var lastSignalTime = 0;
+    var activityEvents = ['scroll', 'wheel', 'mousemove', 'pointermove', 'pointerdown', 'keydown', 'touchstart', 'touchmove'];
+
+    function showOverlay() {
+      if (idleActive) return;
+      idleActive = true;
+      overlay.classList.add('idle-overlay--visible');
+      overlay.setAttribute('aria-hidden', 'false');
+      if (headlineController && headlineController.setIdleState) {
+        headlineController.setIdleState(true);
+      }
+    }
+
+    function hideOverlay() {
+      if (!idleActive) return;
+      idleActive = false;
+      overlay.classList.remove('idle-overlay--visible');
+      overlay.setAttribute('aria-hidden', 'true');
+      if (headlineController && headlineController.setIdleState) {
+        headlineController.setIdleState(false);
+      }
+    }
+
+    function resetIdleTimer() {
+      if (idleTimer) clearTimeout(idleTimer);
+      idleTimer = setTimeout(showOverlay, idleDelay);
+    }
+
+    function handleActivity() {
+      var now = Date.now();
+      if (now - lastSignalTime < 120) return;
+      lastSignalTime = now;
+
+      hideOverlay();
+      if (headlineController && headlineController.onInteraction) {
+        headlineController.onInteraction();
+      }
+      resetIdleTimer();
+    }
+
+    activityEvents.forEach(function (eventName) {
+      if (eventName === 'keydown') {
+        window.addEventListener(eventName, handleActivity);
+      } else {
+        window.addEventListener(eventName, handleActivity, { passive: true });
+      }
+    });
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
+        if (idleTimer) clearTimeout(idleTimer);
+      } else {
+        lastSignalTime = 0;
+        handleActivity();
+      }
+    });
+
+    resetIdleTimer();
+  }
+
+  var heroHeadlineController = initHeroHeadlineRotator();
+  initIdleOverlay(heroHeadlineController);
 
 
   /* ------------------------------------------
@@ -341,6 +472,19 @@
      CAROUSEL - RECOGNIZED BY
      ------------------------------------------ */
 
+  function applyCarouselLoopDistance(track, setSize) {
+    if (!track) return;
+    var items = track.querySelectorAll('.carousel__item');
+    if (!items.length || items.length < setSize + 1) return;
+
+    var firstStart = items[0].getBoundingClientRect().left;
+    var secondSetStart = items[setSize].getBoundingClientRect().left;
+    var loopDistance = secondSetStart - firstStart;
+    if (loopDistance > 0) {
+      track.style.setProperty('--carousel-loop-distance', loopDistance + 'px');
+    }
+  }
+
   function initCarousel() {
     var carouselTrack = document.getElementById('carouselTrack');
     if (!carouselTrack) return;
@@ -375,6 +519,9 @@
     }
 
     carouselTrack.innerHTML = itemsHTML;
+    requestAnimationFrame(function () {
+      applyCarouselLoopDistance(carouselTrack, shuffledImages.length);
+    });
   }
 
   initCarousel();
@@ -409,9 +556,25 @@
       html += '<div class="carousel__item"><img src="assets/partner/' + shuffled[i] + '.png" alt="Partner ' + i + '"></div>';
     }
     track.innerHTML = html;
+    requestAnimationFrame(function () {
+      applyCarouselLoopDistance(track, shuffled.length);
+    });
   }
 
   initPartnerCarousel();
+
+  function refreshHeroCarouselLoopDistances() {
+    var recognizedTrack = document.getElementById('carouselTrack');
+    var partnerTrack = document.getElementById('partnerTrack');
+    applyCarouselLoopDistance(recognizedTrack, 7);
+    applyCarouselLoopDistance(partnerTrack, 4);
+  }
+
+  window.addEventListener('load', refreshHeroCarouselLoopDistances);
+  window.addEventListener('resize', refreshHeroCarouselLoopDistances, { passive: true });
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', refreshHeroCarouselLoopDistances, { passive: true });
+  }
 
   /* ------------------------------------------
      NEWS CAROUSEL - Arrow navigation

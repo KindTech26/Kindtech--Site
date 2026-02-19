@@ -320,6 +320,26 @@ img {
   text-align: left;
 }
 
+.hero__title-tail {
+  display: inline-flex;
+  align-items: baseline;
+  min-height: 1.2em;
+}
+
+.hero__title-dynamic {
+  font-style: normal;
+}
+
+.hero__title-part--italic {
+  font-style: italic;
+  font-weight: 300;
+}
+
+.hero__title-part--bold {
+  font-style: normal;
+  font-weight: 700;
+}
+
 .hero__cta {
   display: inline-flex;
   align-items: center;
@@ -968,6 +988,110 @@ img {
 }
 
 /* ==========================================
+   IDLE OVERLAY
+   ========================================== */
+
+.idle-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.96);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.38s ease, visibility 0s linear 0.38s;
+}
+
+.idle-overlay::before {
+  content: '';
+  position: absolute;
+  inset: -12%;
+  opacity: 0;
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.08) 0.45px, transparent 0.95px),
+    radial-gradient(rgba(255, 255, 255, 0.05) 0.45px, transparent 1px);
+  background-size: 3px 3px, 5px 5px;
+  background-position: 0 0, 1px 2px;
+  animation: idleNoiseDrift 16s linear infinite;
+  animation-play-state: paused;
+}
+
+.idle-overlay::after {
+  content: '';
+  position: absolute;
+  inset: -24%;
+  opacity: 0;
+  background-image:
+    radial-gradient(60% 36% at 16% 24%, rgba(103, 252, 225, 0.26) 0%, rgba(103, 252, 225, 0) 72%),
+    radial-gradient(58% 34% at 84% 76%, rgba(51, 222, 186, 0.24) 0%, rgba(51, 222, 186, 0) 74%),
+    linear-gradient(115deg, rgba(120, 255, 233, 0.22) 0%, rgba(120, 255, 233, 0) 46%, rgba(48, 214, 184, 0.2) 100%);
+  filter: blur(34px);
+  transform: translate3d(0, 0, 0) scale(1.02);
+  animation: idleWaveDrift 18s linear infinite;
+  animation-play-state: paused;
+}
+
+.idle-overlay--visible {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.38s ease;
+}
+
+.idle-overlay--visible::before {
+  opacity: 0.14;
+  animation-play-state: running;
+}
+
+.idle-overlay--visible::after {
+  opacity: 0.4;
+  animation-play-state: running;
+}
+
+.idle-overlay__content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 0 24px;
+}
+
+.idle-overlay__logo {
+  width: clamp(96px, 13vw, 140px);
+  height: auto;
+  margin: 0 auto 16px;
+  opacity: 0.9;
+  filter: grayscale(1) contrast(1.06) brightness(1.1);
+}
+
+.idle-overlay__title {
+  font-size: clamp(26px, 4vw, 44px);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  background: linear-gradient(90deg, #e8fffa 0%, #97f9e3 22%, #45e4c0 48%, #20c8a6 72%, #e8fffa 100%);
+  background-size: 230% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: idleTitleWave 5.5s ease-in-out infinite;
+  animation-play-state: paused;
+}
+
+.idle-overlay--visible .idle-overlay__title {
+  animation-play-state: running;
+}
+
+.idle-overlay__hint {
+  margin-top: 10px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #8c8c8c;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ==========================================
    LEGAL PAGE
    ========================================== */
 
@@ -1251,7 +1375,7 @@ img {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translate3d(calc(-1 * var(--carousel-loop-distance, 50%)), 0, 0);
   }
 }
 
@@ -1273,6 +1397,60 @@ img {
   }
   100% {
     background-position: 0% 0%;
+  }
+}
+
+@keyframes idleNoiseDrift {
+  0% {
+    transform: translate3d(0, 0, 0);
+    background-position: 0 0, 1px 2px;
+  }
+  50% {
+    transform: translate3d(-1.2%, 1%, 0);
+    background-position: 14px -9px, -8px 6px;
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+    background-position: 0 0, 1px 2px;
+  }
+}
+
+@keyframes idleWaveDrift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1.02);
+    background-position: 0% 50%, 100% 50%, 0% 50%;
+  }
+  50% {
+    transform: translate3d(-2.2%, 1.8%, 0) scale(1.04);
+    background-position: 26% 46%, 74% 58%, 52% 56%;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.02);
+    background-position: 0% 50%, 100% 50%, 0% 50%;
+  }
+}
+
+@keyframes idleTitleWave {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .idle-overlay {
+    transition: none;
+  }
+
+  .idle-overlay::before {
+    animation: none;
+  }
+
+  .idle-overlay::after {
+    animation: none;
+  }
+
+  .idle-overlay__title {
+    animation: none;
   }
 }
 
@@ -1316,6 +1494,9 @@ img {
   gap: 32px;
   animation: scrollLeft 30s linear infinite;
   width: fit-content;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
 }
 
 .carousel__track:hover {
