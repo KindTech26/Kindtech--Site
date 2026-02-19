@@ -1407,7 +1407,19 @@ img {
   }
 
   .hero__carousel {
+    margin-top: 56px;
     max-width: 100%;
+  }
+
+  .hero__carousel + .hero__carousel {
+    margin-top: 18px;
+  }
+
+  .hero__carousel-label {
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 0;
+    text-transform: none;
   }
 
   .carousel {
@@ -1530,11 +1542,11 @@ img {
   }
 
   .hero__carousel {
-    margin-top: 32px;
+    margin-top: 38px;
   }
 
   .hero__carousel + .hero__carousel {
-    margin-top: 10px;
+    margin-top: 12px;
   }
 
   .section-divider-img__src {
