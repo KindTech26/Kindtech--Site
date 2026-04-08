@@ -659,6 +659,24 @@ img {
   opacity: 0.7;
 }
 
+.affiliater-card--compy .affiliater-card__compy-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 100%;
+  min-height: 160px;
+}
+
+.affiliater-card__compy-logo {
+  width: auto;
+  max-width: 140px;
+  height: auto;
+  max-height: 36px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
 .affiliater-card--placeholder {
   display: flex;
   flex-direction: column;
@@ -1369,6 +1387,7 @@ img {
 
 .thinking__item {
   display: block;
+  position: relative;
   border-top: 1px solid #1f1f1f;
   padding: 58px 0 62px;
 }
@@ -1384,6 +1403,34 @@ img {
   font-weight: 600;
   color: var(--text-primary);
   transition: color var(--transition-base);
+}
+
+.thinking__item-indicator {
+  position: absolute;
+  top: 18px;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 16px;
+  padding: 0 6px;
+  border-radius: 999px;
+  border: 1px solid #303030;
+  background: rgba(255, 255, 255, 0.02);
+  color: #d6d6d6;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  transition: border-color var(--transition-base), color var(--transition-base), background-color var(--transition-base);
+}
+
+.thinking__item:hover .thinking__item-indicator,
+.thinking__item:focus-visible .thinking__item-indicator {
+  border-color: #4a4a4a;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .thinking__item-text {
@@ -1442,6 +1489,192 @@ img {
   font-weight: 300;
   color: #b3b3b3;
   animation: cursorBlink 1.3s step-end infinite;
+}
+
+.thinking-detail--company .thinking-detail__content {
+  min-height: auto;
+  justify-content: flex-start;
+  padding-top: clamp(20px, 3vw, 42px);
+  padding-bottom: 10px;
+}
+
+.company-list {
+  max-width: 920px;
+  margin: 0 auto;
+  margin-top: 34px;
+}
+
+.company-list__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-top: 1px solid #1f1f1f;
+  border-bottom: 1px solid #1f1f1f;
+  padding: 16px 0;
+  transition: border-color var(--transition-base);
+}
+
+.company-list__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: clamp(24px, 3.5vw, 36px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+  transition: color var(--transition-base);
+}
+
+.company-list__title strong {
+  font-weight: 700;
+}
+
+.company-list__note {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 16px;
+  padding: 0 7px;
+  border: 1px solid #2a2a2a;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #d5d5d5;
+  transform: translateY(-1px);
+  transition: border-color var(--transition-base), color var(--transition-base), background-color var(--transition-base);
+}
+
+.company-list__date {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.company-list__item:hover {
+  border-color: #2f2f2f;
+}
+
+.company-list__item:hover .company-list__title {
+  color: #f2f2f2;
+}
+
+.company-list__item:hover .company-list__note {
+  color: #ffffff;
+  border-color: #3a3a3a;
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.company-post {
+  padding-top: calc(var(--nav-height) + 48px);
+  padding-bottom: 96px;
+}
+
+.company-post__inner {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.company-post__header {
+  margin-top: 24px;
+  border-bottom: 1px solid #1f1f1f;
+  padding-bottom: 14px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.company-post__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: clamp(36px, 5.8vw, 58px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  font-weight: 500;
+}
+
+.company-post__title strong {
+  font-weight: 700;
+}
+
+.company-post__date {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  padding-bottom: 8px;
+}
+
+.company-post__lang-switch {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  padding: 3px;
+  gap: 3px;
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+
+.company-post__lang-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  border-radius: 999px;
+  font-family: var(--font-family);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 7px 11px;
+  cursor: pointer;
+  transition: color var(--transition-base), background-color var(--transition-base);
+}
+
+.company-post__lang-btn--active {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.company-post__content {
+  color: var(--text-secondary);
+  font-size: 17px;
+  line-height: 1.82;
+  max-width: 640px;
+}
+
+.company-post__content p + p {
+  margin-top: 24px;
+}
+
+.company-post__signature {
+  margin-top: 24px;
+  color: var(--text-primary);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.company-post__signature-line {
+  display: block;
+  margin-top: 3px;
+  color: #8a8a8a;
+}
+
+.company-post[data-lang="en"] .lang-pt {
+  display: none;
+}
+
+.company-post[data-lang="pt"] .lang-en {
+  display: none;
 }
 
 @media (min-width: 1025px) {
@@ -1624,6 +1857,11 @@ img {
     animation: none;
     opacity: 1;
     transform: none;
+  }
+
+  .company-list__item,
+  .company-post__lang-btn {
+    transition: none;
   }
 }
 
@@ -1895,6 +2133,15 @@ img {
     font-size: clamp(28px, 8.8vw, 38px);
   }
 
+  .thinking__item-indicator {
+    top: 14px;
+    right: 0;
+    min-width: 22px;
+    height: 15px;
+    padding: 0 5px;
+    font-size: 9px;
+  }
+
   .thinking__item-text {
     margin-top: 8px;
     font-size: 15px;
@@ -1910,6 +2157,69 @@ img {
   }
 
   .thinking-detail__subtitle {
+    font-size: 14px;
+  }
+
+  .thinking-detail--company .thinking-detail__content {
+    padding-top: 18px;
+    padding-bottom: 6px;
+  }
+
+  .company-list__item {
+    padding: 14px 0;
+  }
+
+  .company-list {
+    margin-top: 26px;
+  }
+
+  .company-list__title {
+    font-size: clamp(22px, 6.4vw, 30px);
+  }
+
+  .company-list__note {
+    min-width: 24px;
+    height: 15px;
+    padding: 0 6px;
+    font-size: 9px;
+  }
+
+  .company-list__date {
+    font-size: 11px;
+  }
+
+  .company-post {
+    padding-top: calc(var(--nav-height) + 36px);
+    padding-bottom: 72px;
+  }
+
+  .company-post__header {
+    margin-top: 18px;
+    padding-bottom: 12px;
+  }
+
+  .company-post__title {
+    font-size: clamp(30px, 8vw, 44px);
+    gap: 8px;
+  }
+
+  .company-post__lang-switch {
+    margin-top: 14px;
+    margin-bottom: 14px;
+  }
+
+  .company-post__content {
+    font-size: 16px;
+    line-height: 1.72;
+    max-width: 600px;
+  }
+
+  .company-post__content p + p {
+    margin-top: 20px;
+  }
+
+  .company-post__signature {
+    margin-top: 20px;
     font-size: 14px;
   }
 
@@ -2093,6 +2403,15 @@ img {
     font-size: clamp(24px, 10vw, 34px);
   }
 
+  .thinking__item-indicator {
+    top: 12px;
+    right: 0;
+    min-width: 20px;
+    height: 14px;
+    padding: 0 5px;
+    font-size: 8px;
+  }
+
   .thinking__item-text {
     font-size: 14px;
   }
@@ -2108,6 +2427,76 @@ img {
 
   .thinking-detail__subtitle {
     margin-top: 14px;
+    font-size: 13px;
+  }
+
+  .thinking-detail--company .thinking-detail__content {
+    padding-top: 14px;
+    padding-bottom: 4px;
+  }
+
+  .company-list__item {
+    padding: 12px 0;
+  }
+
+  .company-list {
+    margin-top: 22px;
+  }
+
+  .company-list__title {
+    font-size: clamp(20px, 7.6vw, 26px);
+    gap: 6px;
+  }
+
+  .company-list__note {
+    min-width: 22px;
+    height: 14px;
+    padding: 0 5px;
+    font-size: 8px;
+  }
+
+  .company-list__date {
+    font-size: 10px;
+  }
+
+  .company-post {
+    padding-top: calc(var(--nav-height) + 28px);
+    padding-bottom: 64px;
+  }
+
+  .company-post__header {
+    margin-top: 14px;
+    padding-bottom: 10px;
+    gap: 12px;
+  }
+
+  .company-post__title {
+    font-size: clamp(24px, 9vw, 34px);
+    gap: 6px;
+  }
+
+  .company-post__date {
+    padding-bottom: 6px;
+    font-size: 10px;
+  }
+
+  .company-post__lang-switch {
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+
+  .company-post__content {
+    font-size: 15px;
+    line-height: 1.7;
+    max-width: 100%;
+  }
+
+  .company-post__content p + p {
+    margin-top: 18px;
+  }
+
+  .company-post__signature {
+    margin-top: 18px;
     font-size: 13px;
   }
 
