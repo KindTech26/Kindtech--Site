@@ -4,7 +4,7 @@
   <!-- Homepage (highest priority) -->
   <url>
     <loc>https://kindtech.pt/</loc>
-    <lastmod>2026-02-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -12,9 +12,33 @@
   <!-- Thinking Hub -->
   <url>
     <loc>https://kindtech.pt/thinking.html</loc>
-    <lastmod>2026-02-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+
+  <!-- Thinking: Company -->
+  <url>
+    <loc>https://kindtech.pt/thinking-company.html</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Thinking: Company note — meet the board -->
+  <url>
+    <loc>https://kindtech.pt/thinking-company-meet-the-board.html</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Thinking: Company note — efficiency is a mindset -->
+  <url>
+    <loc>https://kindtech.pt/thinking-company-kind-of-talent.html</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 
   <!-- Thinking: Research -->
@@ -31,14 +55,6 @@
     <lastmod>2026-02-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-  </url>
-
-  <!-- Thinking: Company -->
-  <url>
-    <loc>https://kindtech.pt/thinking-company.html</loc>
-    <lastmod>2026-02-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
   </url>
 
   <!-- Legal / Privacy -->
