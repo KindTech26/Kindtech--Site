@@ -2606,8 +2606,19 @@ img {
     transform: none;
   }
 
+  .thinking__sections {
+    width: calc(100% - 40px);
+    max-width: none;
+    margin: 0 auto;
+    padding: 0;
+  }
+
   .thinking__item {
-    padding: 42px 0 46px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 42px 16px 46px;
+    margin: 0;
+    border-radius: 20px;
   }
 
   .thinking__item-title {
@@ -2717,18 +2728,39 @@ img {
   }
 
   .news__card {
-    flex: 0 0 260px;
+    flex: 0 0 100%;
+    min-height: 252px;
   }
 
   .news__arrow {
-    width: 34px;
-    height: 34px;
+    position: absolute;
+    top: 50%;
+    z-index: 3;
+    width: 36px;
+    height: 36px;
+    transform: translateY(-50%);
+    background: rgba(12, 12, 12, 0.84);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .news__arrow--left {
+    left: 10px;
+  }
+
+  .news__arrow--right {
+    right: 10px;
+  }
+
+  .news__wrapper {
+    position: relative;
+    display: block;
   }
 
   .news__track {
-    gap: 16px;
-    padding: 8px 16px 8px 0;
-    scroll-snap-type: x proximity;
+    gap: 0;
+    padding: 0;
+    scroll-snap-type: x mandatory;
   }
 }
 
@@ -2804,22 +2836,24 @@ img {
   }
 
   .news__card {
-    flex: 0 0 240px;
+    flex: 0 0 100%;
+    min-height: 244px;
+    border-radius: 16px;
+    padding: 26px 22px;
   }
 
   .news__arrow {
-    width: 30px;
-    height: 30px;
+    width: 34px;
+    height: 34px;
   }
 
   .news__wrapper {
-    gap: 8px;
+    position: relative;
   }
 
   .news__track {
-    gap: 14px;
-    padding: 6px 12px 6px 0;
-    scroll-snap-type: x proximity;
+    gap: 0;
+    padding: 0;
   }
 
   .news__source {
@@ -2876,8 +2910,18 @@ img {
     transform: translate(-65px, -15px);
   }
 
+  .thinking__sections {
+    width: calc(100% - 40px);
+    margin: 0 auto;
+    padding: 0;
+  }
+
   .thinking__item {
-    padding: 34px 0 36px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 34px 14px 36px;
+    margin: 0;
+    border-radius: 18px;
   }
 
   .thinking__item-title {
@@ -3053,17 +3097,30 @@ img {
 }
 
 @media (max-width: 768px) {
+  .hero__title-tail {
+    display: inline;
+  }
+
+  .hero__title-dynamic {
+    white-space: normal;
+  }
+
   .waveform-section {
-    padding: 60px 0 0;
+    padding: 42px 0 0;
   }
   .waveform-section__phrase {
-    font-size: clamp(0.85rem, 4vw, 1.4rem);
+    font-size: clamp(0.92rem, 4.4vw, 1.4rem);
   }
   .waveform-section__canvas {
-    height: 200px;
+    width: 132%;
+    max-width: none;
+    height: 236px;
+    left: 50%;
+    transform: translateX(-50%);
   }
   .waveform-section__text-row {
-    margin-bottom: 36px;
+    padding: 0 20px;
+    margin-bottom: 8px;
   }
 }
 

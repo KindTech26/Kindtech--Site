@@ -163,10 +163,22 @@
 
     var phrases = [
       { parts: [{ text: 'human longevity.', className: 'hero__title-part--italic' }] },
-      { parts: [{ text: 'those who need it most.', className: 'hero__title-part--italic' }] },
+      {
+        parts: [
+          { text: 'those who need it', className: 'hero__title-part--italic' },
+          { breakClass: 'hero__br--mobile' },
+          { text: ' most.', className: 'hero__title-part--italic' }
+        ]
+      },
       { parts: [{ text: 'everyone.', className: 'hero__title-part--italic' }] },
       { parts: [{ text: 'what matters most.', className: 'hero__title-part--italic' }] },
-      { parts: [{ text: 'the ones technology forgot.', className: 'hero__title-part--italic' }] }
+      {
+        parts: [
+          { text: 'the ones technology', className: 'hero__title-part--italic' },
+          { breakClass: 'hero__br--mobile' },
+          { text: ' forgot.', className: 'hero__title-part--italic' }
+        ]
+      }
     ];
     var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var typeDelay = 58;
@@ -637,15 +649,130 @@
     var rightBtn = document.getElementById('newsArrowRight');
     if (!track || !leftBtn || !rightBtn) return;
 
-    var scrollAmount = 324; // card width (300) + gap (24)
+    var mobileMq = window.matchMedia('(max-width: 768px)');
+    var autoplayTimer = null;
+    var autoplayResumeTimer = null;
+    var autoplayDelay = 2000;
+
+    function getCards() {
+      return Array.prototype.slice.call(track.querySelectorAll('.news__card'));
+    }
+
+    function getScrollAmount() {
+      var cards = getCards();
+      if (cards.length > 1) {
+        return Math.max(1, cards[1].offsetLeft - cards[0].offsetLeft);
+      }
+      if (cards.length === 1) {
+        return Math.max(1, cards[0].offsetWidth);
+      }
+      return 324;
+    }
+
+    function getClosestCardIndex() {
+      var cards = getCards();
+      var scrollLeft = track.scrollLeft;
+      var closestIndex = 0;
+      var smallestDelta = Infinity;
+
+      cards.forEach(function(card, index) {
+        var delta = Math.abs(card.offsetLeft - scrollLeft);
+        if (delta < smallestDelta) {
+          smallestDelta = delta;
+          closestIndex = index;
+        }
+      });
+
+      return closestIndex;
+    }
+
+    function goToCard(index, behavior) {
+      var cards = getCards();
+      if (!cards.length) return;
+
+      var nextIndex = index;
+      if (nextIndex < 0) nextIndex = cards.length - 1;
+      if (nextIndex >= cards.length) nextIndex = 0;
+
+      track.scrollTo({
+        left: cards[nextIndex].offsetLeft,
+        behavior: behavior || 'smooth'
+      });
+    }
+
+    function stopAutoplay() {
+      if (autoplayTimer) {
+        clearInterval(autoplayTimer);
+        autoplayTimer = null;
+      }
+      if (autoplayResumeTimer) {
+        clearTimeout(autoplayResumeTimer);
+        autoplayResumeTimer = null;
+      }
+    }
+
+    function startAutoplay() {
+      stopAutoplay();
+      if (!mobileMq.matches || getCards().length < 2) return;
+
+      autoplayTimer = setInterval(function() {
+        goToCard(getClosestCardIndex() + 1, 'smooth');
+      }, autoplayDelay);
+    }
+
+    function resetAutoplaySoon() {
+      stopAutoplay();
+      if (!mobileMq.matches) return;
+      autoplayResumeTimer = setTimeout(startAutoplay, autoplayDelay + 600);
+    }
 
     leftBtn.addEventListener('click', function () {
-      track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      if (mobileMq.matches) {
+        goToCard(getClosestCardIndex() - 1, 'smooth');
+        resetAutoplaySoon();
+        return;
+      }
+
+      track.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
     });
 
     rightBtn.addEventListener('click', function () {
-      track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      if (mobileMq.matches) {
+        goToCard(getClosestCardIndex() + 1, 'smooth');
+        resetAutoplaySoon();
+        return;
+      }
+
+      track.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
     });
+
+    track.addEventListener('touchstart', stopAutoplay, { passive: true });
+    track.addEventListener('touchend', resetAutoplaySoon, { passive: true });
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
+        stopAutoplay();
+      } else {
+        startAutoplay();
+      }
+    });
+
+    function syncNewsMode() {
+      if (mobileMq.matches) {
+        goToCard(getClosestCardIndex(), 'auto');
+        startAutoplay();
+      } else {
+        stopAutoplay();
+      }
+    }
+
+    syncNewsMode();
+    if (mobileMq.addEventListener) {
+      mobileMq.addEventListener('change', syncNewsMode);
+    } else if (mobileMq.addListener) {
+      mobileMq.addListener(syncNewsMode);
+    }
+    window.addEventListener('resize', syncNewsMode, { passive: true });
   }
 
   initNewsCarousel();
